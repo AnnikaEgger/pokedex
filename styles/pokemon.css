@@ -1,0 +1,21 @@
+.pokemon-article {
+  padding: 0 16px;
+  height: 400px;
+  width: 300px;
+  background-color: var(--secondary-color);
+}
+
+.article-top {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 8px 0px;
+  width: 100%;
+}
+
+.article-top p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px 0px;
+}
