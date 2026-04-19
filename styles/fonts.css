@@ -135,5 +135,6 @@ body {
 
 .article-top h2,
 p {
+  color: white;
   font-size: 24px;
 }

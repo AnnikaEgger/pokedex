@@ -1,10 +1,17 @@
+/* #region pokemon thumbnail */
+
+.pokemon-btn {
+  border: none;
+  padding: 0;
+  background-color: var(--secondary-color);
+  border-radius: 24px;
+  width: 300px;
+}
+
 .pokemon-article {
   display: flex;
   flex-direction: column;
   /* height: 400px; */
-  width: 300px;
-  background-color: var(--secondary-color);
-  border-radius: 24px;
 }
 
 .article-top {
@@ -55,7 +62,30 @@
 .type-section img {
   height: 50px;
   width: 50px;
+  border-radius: 100%;
 }
+
+.type-section img:hover {
+  box-shadow: 0px 0px 8px whitesmoke;
+}
+
+/* #endregion */
+
+/* #region pokemon dialog */
+
+.pokemon-dialog {
+  /* display: flex; */
+  justify-self: center;
+  align-self: center;
+  height: 500px;
+  width: 350px;
+}
+
+.pokemon-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* #endregion */
 
 /* #region type classes */
 .grass {

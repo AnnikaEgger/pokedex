@@ -1,8 +1,9 @@
 function pokemonThumbnailArticleTemplate(index) {
-  return `<article class="pokemon-article">
+  return `<button onclick="openPokemonDialog()" class="pokemon-btn">
+  <article class="pokemon-article">
 
     <section class="article-top">
-      <p>#${index + 1}</p>
+      <p>#${pokemons[index].id}</p>
       <h2>
       ${String(pokemons[index].name).charAt(0).toUpperCase() + String(pokemons[index].name).slice(1)}
       </h2>
@@ -15,5 +16,8 @@ function pokemonThumbnailArticleTemplate(index) {
         
     <section id="${"type-section" + index}" class="type-section"></section>
 
-  </article>`;
+  </article>
+  </button>`;
 }
+
+function pokemonDialogTemplate() {}

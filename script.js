@@ -1,12 +1,14 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
+const POKEMON_DIALOG = document.getElementById("pokemon-dialog");
+
 let pokemons = [];
 
 async function onloadFunc() {
-  let pokemonResponse = await getAllPokemon("pokemon?limit=8&offset=100");
+  let pokemonResponse = await getAllPokemon("pokemon?limit=5&offset=10");
 
   for (let index = 0; index < pokemonResponse.results.length; index++) {
     pokemons.push({
-      name: pokemonResponse.results[index].name,
+      // name: pokemonResponse.results[index].name,
       url: pokemonResponse.results[index].url,
     });
   }
@@ -78,3 +80,13 @@ function renderTypeIcons(index) {
     }" alt="Pokemon Type Icon">`;
   }
 }
+
+function openPokemonDialog() {
+  POKEMON_DIALOG.showModal();
+}
+
+POKEMON_DIALOG.addEventListener("click", (event) => {
+  if (event.target === POKEMON_DIALOG) {
+    POKEMON_DIALOG.close();
+  }
+});
