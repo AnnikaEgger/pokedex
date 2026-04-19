@@ -12,6 +12,7 @@ main {
   gap: 48px;
   flex: 1;
   background-color: var(--primary-color);
+  overflow-y: scroll;
 }
 
 /* #region header */
@@ -23,7 +24,7 @@ header {
   padding: 0 var(--content-padding);
 
   background-color: var(--secondary-color);
-  height: 120px;
+  height: 80px;
 }
 
 .header-left {
@@ -33,6 +34,10 @@ header {
 
 .pokeball-logo {
   height: 36px;
+}
+
+.filter-pokemon-input {
+  height: 32px;
 }
 
 /* #endregion */

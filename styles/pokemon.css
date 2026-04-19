@@ -1,13 +1,14 @@
 .pokemon-article {
   display: flex;
   flex-direction: column;
-  height: 400px;
+  /* height: 400px; */
   width: 300px;
   background-color: var(--secondary-color);
   border-radius: 24px;
 }
 
 .article-top {
+  height: 32px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -18,13 +19,13 @@
   position: absolute;
   top: 0;
   left: 0px;
-  /* padding: 8px 0px; */
 }
 
 .pokemon-img-section-front {
   display: flex;
   justify-content: center;
-  flex: 1;
+  height: 300px;
+  /* flex: 1; */
 }
 
 .pokemon-img {
@@ -38,12 +39,22 @@
   zoom: 1.05;
 }
 
+.zoom-container {
+  height: 100%;
+}
+
 .type-section {
+  height: 82px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 24px;
-  padding: 16px 16px;
+  /* padding: 16px 16px; */
+}
+
+.type-section img {
+  height: 50px;
+  width: 50px;
 }
 
 /* #region type classes */
