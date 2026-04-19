@@ -2,7 +2,7 @@ const BASE_URL = "https://pokeapi.co/api/v2/";
 let pokemons = [];
 
 async function onloadFunc() {
-  let pokemonResponse = await getAllPokemon("pokemon?limit=3&offset=0");
+  let pokemonResponse = await getAllPokemon("pokemon?limit=8&offset=20");
 
   for (let index = 0; index < pokemonResponse.results.length; index++) {
     pokemons.push({
@@ -11,8 +11,8 @@ async function onloadFunc() {
     });
   }
 
-  pushPokemonInfos();
-  //   pushPokemonImgUrl();
+  await pushPokemonInfos();
+  // await getPokemonType();
   console.log(pokemons);
   renderPokemons();
 }
@@ -20,19 +20,9 @@ async function onloadFunc() {
 async function pushPokemonInfos() {
   for (let index = 0; index < pokemons.length; index++) {
     let pokemonInfo = await getPokemonInfos(pokemons[index].url);
-    let pokemonImgUrl = await getPokemonInfos(pokemonInfo.forms[0].url);
 
     let currentObject = pokemons[index];
     Object.assign(currentObject, pokemonInfo);
-  }
-}
-
-async function pushPokemonImgUrl() {
-  for (let index = 0; index < pokemons.length; index++) {
-    d;
-    let pokemonImgUrl = await getPokemonInfos(pokemons[index].forms[0].url);
-    let currentObject = pokemons[index];
-    Object.assign(currentObject, pokemonImgUrl);
   }
 }
 
@@ -46,14 +36,52 @@ async function getPokemonInfos(path) {
   return (responseToJson = await response.json());
 }
 
+// async function getPokemonType(index) {
+//   for (
+//     let indexType = 0;
+//     indexType < pokemons[index].types.length;
+//     indexType++
+//   ) {
+//     let response = await fetch(pokemons[index].types[indexType].type.url);
+//     let responseToJson = await response.json();
+//     let typeSpritesJson = await responseToJson.sprites;
+
+//     pokemon[0].types.push(typeSpritesJson);
+//   }
+// }
+
+async function getPokemonType(index) {
+  for (
+    let indexType = 0;
+    indexType < pokemons[index].types.length;
+    indexType++
+  ) {
+    let response = await fetch(pokemons[index].types[indexType].type.url);
+    let responseToJson = await response.json();
+    let typeSpritesJson = await responseToJson.sprites;
+
+    pokemon[0].types.push(typeSpritesJson);
+  }
+}
+
+function addTypeClasses(index) {
+  for (
+    let indexType = 0;
+    indexType < pokemons[index].types.length;
+    indexType++
+  ) {
+    let imgSection = document.getElementById("img-section" + index);
+  }
+}
+
 function renderPokemons() {
   let main = document.getElementById("main");
   for (let index = 0; index < pokemons.length; index++) {
     main.innerHTML += pokemonThumbnailArticleTemplate(index);
-  }
-}
 
-async function getPokemonImgUrl() {
-  let response = await fetch(path);
-  return (responseToJson = await response.json());
+    // if (pokemons[index].types[0].type.name == "grass") {
+    //   let imgSection = document.getElementById("img-section");
+    //   imgSection.classList.add("grass-background");
+    // }
+  }
 }
