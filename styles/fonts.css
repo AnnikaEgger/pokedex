@@ -123,9 +123,16 @@
 
 /* #endregion */
 
+* {
+  font-family: "Figtree";
+}
+
+button {
+  color: white;
+}
+
 body {
   color: white;
-  font-family: "Figtree";
 }
 
 .da-logo-bottom {
@@ -137,4 +144,12 @@ body {
 p {
   color: white;
   font-size: 24px;
+}
+
+.pokemon-dialog {
+  color: white;
+}
+
+.dialog-btn-section button {
+  font-size: 18px;
 }

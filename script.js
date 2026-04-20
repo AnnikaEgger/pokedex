@@ -1,30 +1,33 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
-const POKEMON_DIALOG = document.getElementById("pokemon-dialog");
+let offset = 0;
 
 let pokemons = [];
 
 async function onloadFunc() {
-  let pokemonResponse = await getAllPokemon("pokemon?limit=5&offset=10");
+  let pokemonResponse = await getAllPokemon(
+    `pokemon?limit=20&offset=${offset}`,
+  );
 
   for (let index = 0; index < pokemonResponse.results.length; index++) {
     pokemons.push({
-      // name: pokemonResponse.results[index].name,
+      name: pokemonResponse.results[index].name,
       url: pokemonResponse.results[index].url,
     });
   }
 
-  await pushPokemonInfos();
+  await pushPokemonBaseInfos();
   console.log(pokemons);
 
   renderPokemons();
+  console.log(pokemons);
 }
 
-async function pushPokemonInfos() {
+async function pushPokemonBaseInfos() {
   for (let index = 0; index < pokemons.length; index++) {
-    let pokemonInfo = await getPokemonInfos(pokemons[index].url);
+    let pokemonBaseInfos = await getPokemonInfos(pokemons[index].url);
 
     let currentObject = pokemons[index];
-    Object.assign(currentObject, pokemonInfo);
+    Object.assign(currentObject, pokemonBaseInfos);
 
     await getPokemonTypesIcons(index);
   }
@@ -37,7 +40,12 @@ async function getAllPokemon(path) {
 
 async function getPokemonInfos(path) {
   let response = await fetch(path);
-  return (responseToJson = await response.json());
+  responseToJson = await response.json();
+  return (baseInfos = {
+    id: responseToJson.id,
+    base_sprite: responseToJson.sprites.other.home.front_default,
+    types: responseToJson.types,
+  });
 }
 
 async function getPokemonTypesIcons(index) {
@@ -75,18 +83,8 @@ function renderTypeIcons(index) {
   ) {
     let typeNumber = indexType + 1;
 
-    typeSection.innerHTML += `<img src="${
+    return `<img src="${
       pokemons[index]["type" + typeNumber + "_icon"]
     }" alt="Pokemon Type Icon">`;
   }
 }
-
-function openPokemonDialog() {
-  POKEMON_DIALOG.showModal();
-}
-
-POKEMON_DIALOG.addEventListener("click", (event) => {
-  if (event.target === POKEMON_DIALOG) {
-    POKEMON_DIALOG.close();
-  }
-});
