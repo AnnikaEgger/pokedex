@@ -5,7 +5,7 @@ let pokemons = [];
 
 async function onloadFunc() {
   let pokemonResponse = await getAllPokemon(
-    `pokemon?limit=20&offset=${offset}`,
+    `pokemon?limit=25&offset=${offset}`,
   );
 
   for (let index = 0; index < pokemonResponse.results.length; index++) {
@@ -16,15 +16,13 @@ async function onloadFunc() {
   }
 
   await pushPokemonBaseInfos();
-  console.log(pokemons);
 
   renderPokemons();
-  console.log(pokemons);
 }
 
 async function pushPokemonBaseInfos() {
   for (let index = 0; index < pokemons.length; index++) {
-    let pokemonBaseInfos = await getPokemonInfos(pokemons[index].url);
+    let pokemonBaseInfos = await getPokemonBaseInfos(pokemons[index].url);
 
     let currentObject = pokemons[index];
     Object.assign(currentObject, pokemonBaseInfos);
@@ -38,7 +36,7 @@ async function getAllPokemon(path) {
   return (responseToJson = await response.json());
 }
 
-async function getPokemonInfos(path) {
+async function getPokemonBaseInfos(path) {
   let response = await fetch(path);
   responseToJson = await response.json();
   return (baseInfos = {

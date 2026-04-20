@@ -45,13 +45,12 @@ function pokemonDialogTemplate(index) {
   
   
          <section class="dialog-btn-section">
-        <button class="btn-main">main</button
-        ><button class="btn-stats">stats</button
-        ><button class="btn-evo-chain">evo chain</button>
+        <button id="main-btn" onclick="chooseDetailInfo('main', ${index})"  class="btn-main">main</button
+        ><button id="stats-btn" onclick="chooseDetailInfo('stats', ${index})" class="btn-stats">stats</button
+        ><button id="evo-chain-btn" onclick="chooseDetailInfo('evo-chain', ${index})" class="btn-evo-chain">evo chain</button>
       </section>
       
-    <section class="detail-info-section">
-       ${dialogStatsTemplate()}
+    <section id="detail-info-section" class="detail-info-section">
     </section>
     
     <section class="dialog-arrow-btn-section">
@@ -63,20 +62,20 @@ function pokemonDialogTemplate(index) {
 function dialogMainTemplate() {
   return `<table class="main-info-table">
         <tr>
-          <td>Height:</td>
-          <td></td>
+          <th>Height:</th>
+          <td>${mainInfos.height * 10 + "cm"}</td>
         </tr>
         <tr>
-          <td>Weight:</td>
-          <td></td>
+          <th>Weight:</th>
+          <td>${mainInfos.weight + "kg"}</td>
         </tr>
         <tr>
-          <td>Base Experience:</td>
-          <td></td>
+          <th>Base Experience:</th>
+          <td>${mainInfos.base_experience}</td>
         </tr>
         <tr>
-          <td>Abilities:</td>
-          <td></td>
+          <th>Abilities:</th>
+          <td>${mainInfos.abilities.join(", ")}</td>
         </tr>
       </table>`;
 }
@@ -84,48 +83,50 @@ function dialogMainTemplate() {
 function dialogStatsTemplate() {
   return `   <table>
         <tr>
-          <td>hp</td>
-          <td><progress id="hp-progress" max="100" value="10"></progress></td>
+          <th>hp</th>
+          <td><progress id="hp-progress" max="100" value="${stats.hp}"></progress></td>
         </tr>
         <tr>
-          <td>attack</td>
+          <th>attack</th>
           <td>
-            <progress id="attack-progress" max="100" value="10"></progress>
+            <progress id="attack-progress" max="100" value="${stats.attack}"></progress>
           </td>
         </tr>
         <tr>
-          <td>defense</td>
+          <th>defense</th>
           <td>
-            <progress id="defense-progress" max="100" value="10"></progress>
+            <progress id="defense-progress" max="100" value="${stats.defense}"></progress>
           </td>
         </tr>
         <tr>
-          <td>special-attack</td>
+          <th>special-attack</th>
           <td>
             <progress
               id="special-attack-progress"
               max="100"
-              value="10"
+              value="${stats.special_attack}"
             ></progress>
           </td>
         </tr>
         <tr>
-          <td>special-defense</td>
+          <th>special-defense</th>
           <td>
             <progress
               id="special-defense-progress"
               max="100"
-              value="10"
+              value="${stats.special_defense}"
             ></progress>
           </td>
         </tr>
         <tr>
-          <td>speed</td>
+          <th>speed</th>
           <td>
-            <progress id="speed-progress" max="100" value="10"></progress>
+            <progress id="speed-progress" max="100" value="${stats.speed}"></progress>
           </td>
         </tr>
       </table>`;
 }
 
-function dialogEvoChainTemplate() {}
+function dialogEvoChainTemplate() {
+  return ``;
+}

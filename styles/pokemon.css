@@ -122,13 +122,31 @@
   border-bottom: 2px solid rgb(248, 79, 79);
 }
 
+.border-bottom-red {
+  border-bottom: 2px solid rgb(248, 79, 79);
+}
+
 .detail-info-section {
   /* flex: 1; */
-  padding: 24px;
+  display: flex;
+  align-items: center;
+  height: 200px;
+  padding: 0px 24px;
   background-color: var(--secondary-color);
 }
 
 .main-info-table {
+  display: flex;
+  gap: 10px;
+}
+
+.main-info-table tr {
+  display: flex;
+  gap: 10px;
+}
+
+.main-info-table th {
+  font-weight: 500;
 }
 
 .dialog-arrow-btn-section {
