@@ -1,11 +1,11 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
-let offset = 0;
+let offset = 120;
 
 let pokemons = [];
 
 async function onloadFunc() {
   let pokemonResponse = await getAllPokemon(
-    `pokemon?limit=25&offset=${offset}`,
+    `pokemon?limit=20&offset=${offset}`,
   );
 
   for (let index = 0; index < pokemonResponse.results.length; index++) {

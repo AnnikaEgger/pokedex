@@ -74,7 +74,7 @@
 /* #region pokemon dialog */
 
 .pokemon-dialog {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   justify-self: center;
   align-self: center;
@@ -147,6 +147,10 @@
 
 .main-info-table th {
   font-weight: 500;
+}
+
+.evo-chain-img {
+  width: 100px;
 }
 
 .dialog-arrow-btn-section {

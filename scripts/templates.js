@@ -127,6 +127,8 @@ function dialogStatsTemplate() {
       </table>`;
 }
 
-function dialogEvoChainTemplate() {
-  return ``;
-}
+// function dialogEvoChainTemplate() {
+//   return `  <img class="evo-chain-img" src="" alt="" />
+//   <img class="evo-chain-img" src="" alt="" />
+//   <img class="evo-chain-img" src="" alt="" />`;
+// }

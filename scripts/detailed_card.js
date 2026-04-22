@@ -11,16 +11,14 @@ function openPokemonDialog(index) {
 function renderPokemonDialog(index) {
   POKEMON_DIALOG.innerHTML = pokemonDialogTemplate(index);
   renderDetailInfo(index);
-  getEvolutionChain(index);
-  // getDetailedInfosMain(index);
 }
 
-// POKEMON_DIALOG.addEventListener("click", (event) => {
-//   if (event.target === POKEMON_DIALOG) {
-//     POKEMON_DIALOG.close();
-// when closing dialog: clear mainInfos, statsInfos, etc.
-//   }
-// });
+POKEMON_DIALOG.addEventListener("click", (event) => {
+  if (event.target === POKEMON_DIALOG) {
+    POKEMON_DIALOG.close();
+    // when closing dialog: clear mainInfos, statsInfos, etc.
+  }
+});
 
 function chooseDetailInfo(info, index) {
   activeDetailInfo = info;
@@ -39,7 +37,20 @@ async function renderDetailInfo(index) {
     await getDetailedInfosStats(index);
     detailInfoSection.innerHTML = dialogStatsTemplate();
   } else if (activeDetailInfo == "evo-chain") {
-    detailInfoSection.innerHTML = dialogEvoChainTemplate();
+    let evoStageFigures = await getEvolutionChain(index);
+
+    detailInfoSection.innerHTML = "";
+
+    for (
+      let indexEvoFigure = 0;
+      indexEvoFigure < evoStageFigures.length;
+      indexEvoFigure++
+    ) {
+      detailInfoSection.innerHTML += `  <figure>
+      <img class="evo-chain-img" src="${evoStageFigures[indexEvoFigure].img_url}" alt="" />
+    <figcaption>${evoStageFigures[indexEvoFigure].name}</figcaption>
+  </figure>`;
+    }
   }
 }
 
@@ -85,53 +96,57 @@ async function getDetailedInfosStats(index) {
 
 async function getEvolutionChain(index) {
   let allInfos = await getPokemonInfos(pokemons[index].url);
-  console.log(allInfos);
 
   let speciesInfos = await getPokemonInfos(allInfos.species.url);
-  console.log(speciesInfos);
 
   let evoChainInfos = await getPokemonInfos(speciesInfos.evolution_chain.url);
   console.log(evoChainInfos);
 
-  let evoStage1Img = getEvoStageImg(evoChainInfos, 1);
-  let evoStage2Img = getEvoStageImg(evoChainInfos, 2);
-  let evoStage3Img = getEvoStageImg(evoChainInfos, 3);
+  let evoStage1Figure = await getEvoStageImg(evoChainInfos, 1);
+  let evoStage2Figure = await getEvoStageImg(evoChainInfos, 2);
+  let evoStage3Figure = await getEvoStageImg(evoChainInfos, 3);
 
-  let evStage1Name = evoChainInfos.chain.species.name;
-  console.log(evStage1Name);
-
-  let evStage1Infos = await getPokemonInfos(
-    BASE_URL + "pokemon/" + evStage1Name,
+  evoStageFiguresUnfiltered = [];
+  evoStageFiguresUnfiltered.push(
+    evoStage1Figure,
+    evoStage2Figure,
+    evoStage3Figure,
   );
-  console.log(evStage1Infos);
+  let evoStageFigures = evoStageFiguresUnfiltered.filter(
+    function checkIfUndefined(evoStageFigure) {
+      return evoStageFigure != undefined;
+    },
+  );
 
-  let evStage1Img = evStage1Infos.sprites.other.home.front_default;
-  console.log(evStage1Img);
+  console.log(evoStageFigures);
 
-  // let evStage1Species = evoChainInfos.chain.species.url;
-
-  // let evStage1Pokemon = await getPokemonInfos(evoChainInfos.chain.species.url);
-  // console.log(evStage1Pokemon);
-
-  // let evStage2;
-  // let evStage3;
+  return evoStageFigures;
 }
 
 async function getEvoStageImg(evoChainInfos, stage) {
   // path to the name is different for each stage
   if (stage == 1) {
     evStageName = evoChainInfos.chain.species.name;
-  } else if (stage == 2) {
-    evStageName = "";
-  } else if (stage == 3) {
-    evStageName = "";
+  } else if (stage == 2 && evoChainInfos.chain.evolves_to.length > 0) {
+    evStageName = evoChainInfos.chain.evolves_to[0].species.name;
+  } else if (
+    stage == 3 &&
+    evoChainInfos.chain.evolves_to.length > 0 &&
+    evoChainInfos.chain.evolves_to[0].evolves_to.length > 0
+  ) {
+    evStageName = evoChainInfos.chain.evolves_to[0].evolves_to[0].species.name;
+  } else {
+    return;
   }
 
   let evStageInfos = await getPokemonInfos(BASE_URL + "pokemon/" + evStageName);
-  console.log(evStageInfos);
 
-  return (evStageImg = evStageInfos.sprites.other.home.front_default);
-  console.log(evStageImg);
+  let evStageFigure = {
+    img_url: evStageInfos.sprites.other.home.front_default,
+    name: evStageInfos.name,
+  };
+  console.log(evStageFigure);
+  return evStageFigure;
 }
 
 async function getPokemonInfos(path) {
