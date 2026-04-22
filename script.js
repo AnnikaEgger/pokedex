@@ -1,5 +1,5 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
-let offset = 120;
+let offset = 0;
 
 let pokemons = [];
 
@@ -64,9 +64,9 @@ async function getPokemonTypesIcons(index) {
 }
 
 function renderPokemons() {
-  let main = document.getElementById("main");
+  const POKEMON_SECTION = document.getElementById("pokemon-section");
   for (let index = 0; index < pokemons.length; index++) {
-    main.innerHTML += pokemonThumbnailArticleTemplate(index);
+    POKEMON_SECTION.innerHTML += pokemonThumbnailArticleTemplate(index);
     renderTypeIcons(index);
   }
 }

@@ -53,6 +53,9 @@ function renderEvoChain(evoStageFigures) {
       evoStageFigures,
       indexEvoFigure,
     );
+    if (indexEvoFigure !== evoStageFigures.length - 1) {
+      DETAIL_INFO_SECTION.innerHTML += EvoChainArrowSvgTemplate();
+    }
   }
 }
 

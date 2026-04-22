@@ -130,27 +130,44 @@
   /* flex: 1; */
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   height: 200px;
   padding: 0px 24px;
   background-color: var(--secondary-color);
 }
 
-.main-info-table {
+.detail-info-section table {
   display: flex;
-  gap: 10px;
+  width: 100%;
+  text-align: left;
 }
 
-.main-info-table tr {
+.detail-info-section table tr {
   display: flex;
-  gap: 10px;
+  width: 100%;
 }
 
-.main-info-table th {
-  font-weight: 500;
+.main-info-table th,
+td {
+  width: 15ch;
+}
+
+.stats-table th {
+  width: 50%;
+  margin-right: 10px;
 }
 
 .evo-chain-img {
   width: 100px;
+  height: 100px;
+}
+
+.evo-figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
 }
 
 .dialog-arrow-btn-section {

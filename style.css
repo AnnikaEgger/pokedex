@@ -5,14 +5,35 @@ body {
 }
 
 main {
+  background-color: var(--primary-color);
+  flex: 1;
+  overflow-y: scroll;
+  padding: 48px 0px;
+}
+
+.pokemon-section {
   display: flex;
   flex-wrap: wrap;
-  padding: 48px var(--content-padding);
   justify-content: center;
   gap: 48px;
-  flex: 1;
+  padding: 0 var(--content-padding);
+
   background-color: var(--primary-color);
-  overflow-y: scroll;
+}
+
+.load-more-section {
+  display: flex;
+  padding: 0 var(--content-padding);
+  padding-top: 48px;
+  justify-content: center;
+}
+
+.load-more-btn {
+  height: 48px;
+  width: 100px;
+  border-radius: 16px;
+  background-color: var(--secondary-color);
+  border: none;
 }
 
 /* #region header */

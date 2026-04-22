@@ -153,3 +153,7 @@ p {
 .dialog-btn-section button {
   font-size: 18px;
 }
+
+.detail-info-section table th {
+  font-weight: 500;
+}
