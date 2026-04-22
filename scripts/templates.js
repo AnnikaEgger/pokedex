@@ -127,8 +127,9 @@ function dialogStatsTemplate() {
       </table>`;
 }
 
-// function dialogEvoChainTemplate() {
-//   return `  <img class="evo-chain-img" src="" alt="" />
-//   <img class="evo-chain-img" src="" alt="" />
-//   <img class="evo-chain-img" src="" alt="" />`;
-// }
+function dialogEvoChainTemplate(evoStageFigures, indexEvoFigure) {
+  return `<figure>
+      <img class="evo-chain-img" src="${evoStageFigures[indexEvoFigure].img_url}" alt="" />
+    <figcaption>${evoStageFigures[indexEvoFigure].name}</figcaption>
+  </figure>`;
+}

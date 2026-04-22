@@ -16,137 +16,135 @@ function renderPokemonDialog(index) {
 POKEMON_DIALOG.addEventListener("click", (event) => {
   if (event.target === POKEMON_DIALOG) {
     POKEMON_DIALOG.close();
-    // when closing dialog: clear mainInfos, statsInfos, etc.
+    activeDetailInfo = "main";
   }
 });
 
 function chooseDetailInfo(info, index) {
   activeDetailInfo = info;
-  // renderPokemonDialog(index);
   renderDetailInfo(index);
 }
 
 async function renderDetailInfo(index) {
-  let detailInfoSection = document.getElementById("detail-info-section");
-  let mainBtn = document.getElementById("main-btn");
+  const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
 
   if (activeDetailInfo == "main") {
     await getDetailedInfosMain(index);
-    detailInfoSection.innerHTML = dialogMainTemplate();
+    DETAIL_INFO_SECTION.innerHTML = dialogMainTemplate();
   } else if (activeDetailInfo == "stats") {
     await getDetailedInfosStats(index);
-    detailInfoSection.innerHTML = dialogStatsTemplate();
+    DETAIL_INFO_SECTION.innerHTML = dialogStatsTemplate();
   } else if (activeDetailInfo == "evo-chain") {
     let evoStageFigures = await getEvolutionChain(index);
+    renderEvoChain(evoStageFigures);
+  }
+}
 
-    detailInfoSection.innerHTML = "";
+function renderEvoChain(evoStageFigures) {
+  const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+  DETAIL_INFO_SECTION.innerHTML = "";
 
-    for (
-      let indexEvoFigure = 0;
-      indexEvoFigure < evoStageFigures.length;
-      indexEvoFigure++
-    ) {
-      detailInfoSection.innerHTML += `  <figure>
-      <img class="evo-chain-img" src="${evoStageFigures[indexEvoFigure].img_url}" alt="" />
-    <figcaption>${evoStageFigures[indexEvoFigure].name}</figcaption>
-  </figure>`;
-    }
+  for (
+    let indexEvoFigure = 0;
+    indexEvoFigure < evoStageFigures.length;
+    indexEvoFigure++
+  ) {
+    DETAIL_INFO_SECTION.innerHTML += dialogEvoChainTemplate(
+      evoStageFigures,
+      indexEvoFigure,
+    );
   }
 }
 
 async function getDetailedInfosMain(index) {
-  let response = await fetch(pokemons[index].url);
-  responseToJson = await response.json();
-
+  let allInfos = await getPokemonInfos(pokemons[index].url);
   let abilities = [];
 
   for (
     let indexAbility = 0;
-    indexAbility < responseToJson.abilities.length;
+    indexAbility < allInfos.abilities.length;
     indexAbility++
   ) {
-    abilities.push(responseToJson.abilities[indexAbility].ability.name);
+    abilities.push(allInfos.abilities[indexAbility].ability.name);
   }
 
   mainInfos = {
-    height: responseToJson.height,
-    weight: responseToJson.weight,
-    base_experience: responseToJson.base_experience,
+    height: allInfos.height,
+    weight: allInfos.weight,
+    base_experience: allInfos.base_experience,
     abilities: abilities,
   };
 }
 
 async function getDetailedInfosStats(index) {
-  let response = await fetch(pokemons[index].url);
-  responseToJson = await response.json();
-
-  console.log(responseToJson);
+  let allInfos = await getPokemonInfos(pokemons[index].url);
 
   stats = {
-    hp: responseToJson.stats[0].base_stat,
-    attack: responseToJson.stats[1].base_stat,
-    defense: responseToJson.stats[2].base_stat,
-    special_attack: responseToJson.stats[3].base_stat,
-    special_defense: responseToJson.stats[4].base_stat,
-    speed: responseToJson.stats[5].base_stat,
+    hp: allInfos.stats[0].base_stat,
+    attack: allInfos.stats[1].base_stat,
+    defense: allInfos.stats[2].base_stat,
+    special_attack: allInfos.stats[3].base_stat,
+    special_defense: allInfos.stats[4].base_stat,
+    speed: allInfos.stats[5].base_stat,
   };
 }
 
-// get pokemon --> get species --> evolution-chain/X/
-
 async function getEvolutionChain(index) {
-  let allInfos = await getPokemonInfos(pokemons[index].url);
+  const allInfos = await getPokemonInfos(pokemons[index].url);
+  const speciesInfos = await getPokemonInfos(allInfos.species.url);
+  const evoChainInfos = await getPokemonInfos(speciesInfos.evolution_chain.url);
 
-  let speciesInfos = await getPokemonInfos(allInfos.species.url);
+  const evoStage1Figure = await getEvoStageFigure(evoChainInfos, 1);
+  const evoStage2Figure = await getEvoStageFigure(evoChainInfos, 2);
+  const evoStage3Figure = await getEvoStageFigure(evoChainInfos, 3);
 
-  let evoChainInfos = await getPokemonInfos(speciesInfos.evolution_chain.url);
-  console.log(evoChainInfos);
-
-  let evoStage1Figure = await getEvoStageImg(evoChainInfos, 1);
-  let evoStage2Figure = await getEvoStageImg(evoChainInfos, 2);
-  let evoStage3Figure = await getEvoStageImg(evoChainInfos, 3);
-
-  evoStageFiguresUnfiltered = [];
+  let evoStageFiguresUnfiltered = [];
   evoStageFiguresUnfiltered.push(
     evoStage1Figure,
     evoStage2Figure,
     evoStage3Figure,
   );
-  let evoStageFigures = evoStageFiguresUnfiltered.filter(
+  return filterEvoStageFigures(evoStageFiguresUnfiltered);
+}
+
+async function getEvoStageFigure(evoChainInfos, stage) {
+  let evStageName = getEvStageName(evoChainInfos, stage);
+
+  if (evStageName) {
+    let evStageInfos = await getPokemonInfos(
+      BASE_URL + "pokemon/" + evStageName,
+    );
+    let evStageFigure = {
+      img_url: evStageInfos.sprites.other.home.front_default,
+      name: evStageName,
+    };
+    return evStageFigure;
+  } else {
+    return;
+  }
+}
+
+function filterEvoStageFigures(evoStageFiguresUnfiltered) {
+  const evoStageFigures = evoStageFiguresUnfiltered.filter(
     function checkIfUndefined(evoStageFigure) {
       return evoStageFigure != undefined;
     },
   );
-
-  console.log(evoStageFigures);
-
   return evoStageFigures;
 }
 
-async function getEvoStageImg(evoChainInfos, stage) {
-  // path to the name is different for each stage
+function getEvStageName(evoChainInfos, stage) {
   if (stage == 1) {
-    evStageName = evoChainInfos.chain.species.name;
+    return evoChainInfos.chain.species.name;
   } else if (stage == 2 && evoChainInfos.chain.evolves_to.length > 0) {
-    evStageName = evoChainInfos.chain.evolves_to[0].species.name;
+    return evoChainInfos.chain.evolves_to[0].species.name;
   } else if (
     stage == 3 &&
     evoChainInfos.chain.evolves_to.length > 0 &&
     evoChainInfos.chain.evolves_to[0].evolves_to.length > 0
   ) {
-    evStageName = evoChainInfos.chain.evolves_to[0].evolves_to[0].species.name;
-  } else {
-    return;
+    return evoChainInfos.chain.evolves_to[0].evolves_to[0].species.name;
   }
-
-  let evStageInfos = await getPokemonInfos(BASE_URL + "pokemon/" + evStageName);
-
-  let evStageFigure = {
-    img_url: evStageInfos.sprites.other.home.front_default,
-    name: evStageInfos.name,
-  };
-  console.log(evStageFigure);
-  return evStageFigure;
 }
 
 async function getPokemonInfos(path) {
