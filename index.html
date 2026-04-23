@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="./styles/pokemon.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body id="body" onload="onloadFunc()">
+  <body id="body" onload="init()">
     <!-- <body> -->
     <header>
       <div class="header-left">
@@ -30,12 +30,20 @@
         />
         <h1>Pokedex</h1>
       </div>
-      <input class="filter-pokemon-input" type="text" />
+      <input
+        oninput="filterPokemon()"
+        id="filter-pokemon-input"
+        class="filter-pokemon-input"
+        type="text"
+      />
     </header>
+
     <main id="main">
       <section id="pokemon-section" class="pokemon-section"></section>
       <section class="load-more-section">
-        <button class="load-more-btn">Load more</button>
+        <button onclick="loadMorePokemon()" class="load-more-btn">
+          Load more
+        </button>
       </section>
     </main>
 

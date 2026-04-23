@@ -1,21 +1,21 @@
 function pokemonThumbnailArticleTemplate(index) {
   return `<button onclick="openPokemonDialog(${index})" class="pokemon-btn">
-  <article class="pokemon-article">
+  <article id="pokemon${index}" class="pokemon-article">
 
     <section class="article-top">
-      <p>#${pokemons[index].id}</p>
+      <p>#${currentPokemons[index].id}</p>
       <h2>
-      ${String(pokemons[index].name).charAt(0).toUpperCase() + String(pokemons[index].name).slice(1)}
+      ${String(currentPokemons[index].name).charAt(0).toUpperCase() + String(currentPokemons[index].name).slice(1)}
       </h2>
     </section>
 
     <section id= "${"img-section" + index}" 
-      class="pokemon-img-section-front ${pokemons[index].types[0].type.name}">
-      <img src="${pokemons[index].base_sprite}" alt="" class="pokemon-img">
+      class="pokemon-img-section-front ${currentPokemons[index].types[0].type.name}">
+      <img src="${currentPokemons[index].base_sprite}" alt="" class="pokemon-img">
     </section>
         
     <section id="${"type-section" + index}" class="type-section">
-    ${renderTypeIcons(index)}
+    
     </section>
 
   </article>
@@ -26,15 +26,15 @@ function pokemonDialogTemplate(index) {
   return ` <article class="pokemon-article">
 
     <section class="article-top">
-      <p>#${pokemons[index].id}</p>
+      <p>#${currentPokemons[index].id}</p>
       <h2>
-      ${String(pokemons[index].name).charAt(0).toUpperCase() + String(pokemons[index].name).slice(1)}
+      ${String(currentPokemons[index].name).charAt(0).toUpperCase() + String(currentPokemons[index].name).slice(1)}
       </h2>
     </section>
 
     <section id= "${"img-section" + index}" 
-      class="pokemon-img-section-detailed ${pokemons[index].types[0].type.name}">
-      <img src="${pokemons[index].base_sprite}" alt="" class="pokemon-img-detailed">
+      class="pokemon-img-section-detailed ${currentPokemons[index].types[0].type.name}">
+      <img src="${currentPokemons[index].base_sprite}" alt="" class="pokemon-img-detailed">
     </section>
         
     <section id="${"type-section" + index}" class="type-section">
@@ -54,8 +54,8 @@ function pokemonDialogTemplate(index) {
     </section>
     
     <section class="dialog-arrow-btn-section">
-     <button><img src="../assets/icons/arrow-left.svg" alt="" /></button>
-      <button><img src="../assets/icons/arrow-right.svg" alt="" /></button>
+     <button onclick="renderPokemonDialog(${index - 1})"><img src="../assets/icons/arrow-left.svg" alt="" /></button>
+      <button onclick="renderPokemonDialog(${index + 1})"><img src="../assets/icons/arrow-right.svg" alt="" /></button>
       </section>`;
 }
 

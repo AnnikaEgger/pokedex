@@ -157,3 +157,8 @@ p {
 .detail-info-section table th {
   font-weight: 500;
 }
+
+.load-more-btn {
+  font-size: 24px;
+  font-weight: 500;
+}

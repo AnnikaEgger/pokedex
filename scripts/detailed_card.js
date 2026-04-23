@@ -60,7 +60,7 @@ function renderEvoChain(evoStageFigures) {
 }
 
 async function getDetailedInfosMain(index) {
-  let allInfos = await getPokemonInfos(pokemons[index].url);
+  let allInfos = await getPokemonInfos(currentPokemons[index].url);
   let abilities = [];
 
   for (
@@ -80,7 +80,7 @@ async function getDetailedInfosMain(index) {
 }
 
 async function getDetailedInfosStats(index) {
-  let allInfos = await getPokemonInfos(pokemons[index].url);
+  let allInfos = await getPokemonInfos(currentPokemons[index].url);
 
   stats = {
     hp: allInfos.stats[0].base_stat,
@@ -93,7 +93,7 @@ async function getDetailedInfosStats(index) {
 }
 
 async function getEvolutionChain(index) {
-  const allInfos = await getPokemonInfos(pokemons[index].url);
+  const allInfos = await getPokemonInfos(currentPokemons[index].url);
   const speciesInfos = await getPokemonInfos(allInfos.species.url);
   const evoChainInfos = await getPokemonInfos(speciesInfos.evolution_chain.url);
 

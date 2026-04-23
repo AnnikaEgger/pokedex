@@ -1,5 +1,9 @@
 /* #region pokemon thumbnail */
 
+.display-none {
+  display: none;
+}
+
 .pokemon-btn {
   border: none;
   padding: 0;
