@@ -78,7 +78,6 @@
 /* #region pokemon dialog */
 
 .pokemon-dialog {
-  /* display: flex; */
   flex-direction: column;
   justify-self: center;
   align-self: center;
@@ -131,29 +130,31 @@
 }
 
 .detail-info-section {
-  /* flex: 1; */
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   height: 200px;
-  padding: 0px 24px;
+  padding: 24px 24px;
   background-color: var(--secondary-color);
 }
 
 .detail-info-section table {
-  display: flex;
   width: 100%;
   text-align: left;
 }
 
-.detail-info-section table tr {
-  display: flex;
+.detail-info-section table th,
+td {
+  vertical-align: top;
+}
+
+.detail-info-section table tbody {
   width: 100%;
 }
 
 .main-info-table th,
 td {
-  width: 15ch;
+  width: 50%;
 }
 
 .stats-table th {
@@ -167,11 +168,18 @@ td {
 }
 
 .evo-figure {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  justify-content: start;
   text-align: center;
   gap: 8px;
+  /* overflow-wrap: break-word; */
+}
+
+.evo-figure figcaption {
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .dialog-arrow-btn-section {
@@ -193,6 +201,38 @@ td {
 
 .dialog-arrow-btn-section button img:hover {
   background-color: rgba(253, 91, 79, 0.4);
+}
+
+@media screen and (max-width: 480px) {
+  .pokemon-dialog {
+    width: 250px;
+  }
+
+  .main-info-table th,
+  td {
+    width: 50%;
+  }
+
+  .evo-chain-img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .evo-figure {
+    width: 64px;
+  }
+  .dialog-btn-section button {
+    font-size: 14px;
+  }
+
+  .detail-info-section {
+    padding: 8px 8px;
+  }
+
+  .pokemon-img {
+    width: 230px;
+    height: 230px;
+  }
 }
 /* #endregion */
 

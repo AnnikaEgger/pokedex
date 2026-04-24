@@ -127,6 +127,11 @@
   font-family: "Figtree";
 }
 
+.input-container p {
+  font-size: 14px;
+  color: rgb(248, 79, 79);
+}
+
 button {
   color: white;
 }

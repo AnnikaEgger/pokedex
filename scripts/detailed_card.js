@@ -51,17 +51,44 @@ function chooseDetailInfo(info, index) {
 
 async function renderDetailInfo(index) {
   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+  const MAIN_BTN = document.getElementById("main-btn");
+  const STATS_BTN = document.getElementById("stats-btn");
+  const EVO_CHAIN_BTN = document.getElementById("evo-chain-btn");
 
   if (activeDetailInfo == "main") {
+    STATS_BTN.style.borderBottom = "";
+    EVO_CHAIN_BTN.style.borderBottom = "";
+    MAIN_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
     await getDetailedInfosMain(index);
     DETAIL_INFO_SECTION.innerHTML = dialogMainTemplate();
   } else if (activeDetailInfo == "stats") {
+    MAIN_BTN.style.borderBottom = "";
+    EVO_CHAIN_BTN.style.borderBottom = "";
+    STATS_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
     await getDetailedInfosStats(index);
     DETAIL_INFO_SECTION.innerHTML = dialogStatsTemplate();
   } else if (activeDetailInfo == "evo-chain") {
+    MAIN_BTN.style.borderBottom = "";
+    STATS_BTN.style.borderBottom = "";
+    EVO_CHAIN_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
+    showLoadingSpinnerEvo();
     let evoStageFigures = await getEvolutionChain(index);
+    hideLoadingSpinnerEvo();
     renderEvoChain(evoStageFigures);
   }
+}
+
+function showLoadingSpinnerEvo() {
+  const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+  DETAIL_INFO_SECTION.innerHTML = `<div class="loading-spinner-container-evo">
+        <img class="loading-spinner-evo" src="../assets/icons/pokeball.png" alt="" />
+        <p>loading...</p>
+      </div>`;
+}
+
+function hideLoadingSpinnerEvo() {
+  const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+  DETAIL_INFO_SECTION.innerHTML = "";
 }
 
 function renderEvoChain(evoStageFigures) {

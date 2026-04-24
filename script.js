@@ -1,7 +1,7 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
 let offset = 0;
 let offsetForLoading = 0;
-let limit = 20;
+let limit = 25;
 
 let allPokemons = [];
 let currentPokemons = [];
@@ -12,6 +12,8 @@ function init() {
 }
 
 async function loadPokemon() {
+  showLoadingSpinner();
+
   let pokemonResponse = await getPokemonInfos(
     BASE_URL + `pokemon?limit=${limit}&offset=${offset}` + ".json",
   );
@@ -22,10 +24,38 @@ async function loadPokemon() {
       url: pokemonResponse.results[index].url,
     });
   }
-  console.log(currentPokemons);
 
   await pushPokemonBaseInfos();
+  hideLoadingSpinner();
   renderPokemons();
+  renderLoadMoreBtn();
+}
+
+function renderLoadMoreBtn() {
+  let loadMoreSec = document.getElementById("load-more-section");
+  loadMoreSec.innerHTML = loadMoreBtnTemplate();
+}
+
+function showLoadingSpinner() {
+  let pokeSec = document.getElementById("pokemon-section");
+  pokeSec.style.display = "none";
+
+  let loadMoreSec = document.getElementById("load-more-section");
+  loadMoreSec.style.display = "none";
+
+  let loadingSpinner = document.getElementById("loading-spinner");
+  loadingSpinner.style.display = "flex";
+}
+
+function hideLoadingSpinner() {
+  let pokeSec = document.getElementById("pokemon-section");
+  pokeSec.style.display = "flex";
+
+  let loadMoreSec = document.getElementById("load-more-section");
+  loadMoreSec.style.display = "";
+
+  let loadingSpinner = document.getElementById("loading-spinner");
+  loadingSpinner.style.display = "none";
 }
 
 async function pushPokemonBaseInfos() {
@@ -106,11 +136,14 @@ function loadMorePokemon() {
 function filterPokemon() {
   let inputRef = document.getElementById("filter-pokemon-input");
   let inputValue = inputRef.value;
+  const MIN_TEXT = document.getElementById("input-min-text");
 
   if (inputRef.value.length >= 3) {
+    MIN_TEXT.classList.add("visibility-hidden");
     filterPokemon2(inputValue);
   } else {
     currentPokemons = allPokemons;
+    MIN_TEXT.classList.remove("visibility-hidden");
     const NOT_FOUND_TEXT = document.getElementById("no-pkm-found-h2");
     NOT_FOUND_TEXT.classList.add("display-none");
 
@@ -118,9 +151,13 @@ function filterPokemon() {
   }
 }
 
+function hideInputMinText() {
+  const MIN_TEXT = document.getElementById("input-min-text");
+  MIN_TEXT.classList.add("visibility-hidden");
+}
+
 function filterPokemon2(inputValue) {
   currentPokemons = allPokemons.filter((obj) => obj.name.includes(inputValue));
-  console.log(currentPokemons);
 
   const NOT_FOUND_TEXT = document.getElementById("no-pkm-found-h2");
   if (currentPokemons.length == 0) {

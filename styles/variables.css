@@ -3,13 +3,7 @@
   --secondary-color: rgb(9, 33, 42);
   --third-color: #124658;
 
-  /* --primary-color: rgb(30, 71, 88);
-  --secondary-color: rgb(11, 47, 61); */
-
-  /* --secondary-color: rgba(70, 130, 180, 1); */
-  /* --primary-color: rgba(240, 200, 40, 1); */
-  /* --primary-color: rgba(20, 50, 90, 1); */
   --content-padding: max(calc(50% - 960px), 48px);
-  --content-padding-medium: max(calc(50% - 720px), 48px);
-  --content-padding-small: max(calc(50% - 720px), 24px);
+  /* --content-padding-medium: max(calc(50% - 720px), 48px); */
+  --content-padding-small: max(calc(50% - 960px), 24px);
 }

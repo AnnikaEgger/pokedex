@@ -51,6 +51,10 @@ function pokemonDialogTemplate(index) {
       </section>
       
     <section id="detail-info-section" class="detail-info-section">
+    <div class="loading-spinner-container">
+        <img class="loading-spinner-evo" src="../assets/icons/pokeball.png" alt="" />
+        <p>loading...</p>
+      </div>
     </section>
     
     <section class="dialog-arrow-btn-section">
@@ -154,4 +158,10 @@ function EvoChainArrowSvgTemplate() {
         </g>
     </g>
 </svg>`;
+}
+
+function loadMoreBtnTemplate() {
+  return `<button onclick="loadMorePokemon()" class="load-more-btn">
+          Load more
+        </button>`;
 }

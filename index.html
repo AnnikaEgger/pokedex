@@ -30,26 +30,32 @@
         />
         <h1>Pokedex</h1>
       </div>
-      <input
-        oninput="filterPokemon()"
-        id="filter-pokemon-input"
-        class="filter-pokemon-input"
-        type="text"
-        placeholder="search for pokemon"
-      />
+
+      <div class="input-container">
+        <input
+          onfocusout="hideInputMinText()"
+          oninput="filterPokemon()"
+          id="filter-pokemon-input"
+          type="text"
+          placeholder="search for pokemon"
+        />
+        <p id="input-min-text" class="visibility-hidden">min 3 letters</p>
+      </div>
     </header>
 
     <main id="main">
+      <div id="loading-spinner" class="loading-spinner-container">
+        <img class="loading-spinner" src="./assets/icons/pokeball.png" alt="" />
+        <p>loading...</p>
+      </div>
+
       <section id="pokemon-section" class="pokemon-section"></section>
+
       <h2 id="no-pkm-found-h2" class="no-pkm-found display-none">
         no pokemon found...
       </h2>
 
-      <section class="load-more-section">
-        <button onclick="loadMorePokemon()" class="load-more-btn">
-          Load more
-        </button>
-      </section>
+      <section id="load-more-section" class="load-more-section"></section>
     </main>
 
     <dialog id="pokemon-dialog" class="pokemon-dialog"></dialog>

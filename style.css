@@ -5,6 +5,7 @@ body {
 }
 
 main {
+  position: relative;
   background-color: var(--primary-color);
   flex: 1;
   overflow-y: scroll;
@@ -13,19 +14,63 @@ main {
   flex-direction: column;
 }
 
+.loading-spinner-container {
+  position: absolute;
+  top: calc(50% - 100px);
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  align-self: center;
+  justify-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner-container-evo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.loading-spinner {
+  width: 100px;
+  animation: spinning 1s linear infinite;
+}
+
+.loading-spinner-evo {
+  width: 50px;
+  animation: spinning 1s linear infinite;
+}
+
+@keyframes spinning {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+.pokemon-section,
+.load-more-section,
+header,
+footer {
+  padding: 0 var(--content-padding);
+}
+
 .pokemon-section {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 48px;
-  padding: 0 var(--content-padding);
 
   background-color: var(--primary-color);
 }
 
 .load-more-section {
   display: flex;
-  padding: 0 var(--content-padding);
   padding-top: 48px;
   justify-content: center;
   justify-self: flex-end;
@@ -54,8 +99,7 @@ main {
 header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 var(--content-padding);
+  /* align-items: center; */
 
   background-color: var(--secondary-color);
   height: 80px;
@@ -64,14 +108,26 @@ header {
 .header-left {
   display: flex;
   gap: 8px;
+  align-self: center;
 }
 
 .pokeball-logo {
   height: 36px;
 }
 
-.filter-pokemon-input {
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+}
+
+.input-container input {
+  width: 200px;
   height: 32px;
+}
+
+.visibility-hidden {
+  visibility: hidden;
 }
 
 /* #endregion */
@@ -81,7 +137,6 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 var(--content-padding);
 
   background-color: var(--secondary-color);
   height: 120px;
@@ -101,3 +156,42 @@ footer {
 }
 
 /* #endregion */
+
+@media screen and (max-width: 768px) {
+  .pokemon-section,
+  .load-more-section,
+  header,
+  footer {
+    padding: 0 var(--content-padding-small);
+  }
+
+  .load-more-section {
+    padding-top: 48px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .pokeball-logo {
+    height: 32px;
+  }
+
+  .input-container input {
+    width: 150px;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  .load-more-section {
+    padding-top: 24px;
+  }
+
+  main {
+    padding: 24px 0px;
+  }
+
+  .loading-spinner {
+    width: 64px;
+  }
+}
