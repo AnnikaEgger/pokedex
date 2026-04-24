@@ -9,6 +9,8 @@ main {
   flex: 1;
   overflow-y: scroll;
   padding: 48px 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .pokemon-section {
@@ -26,6 +28,7 @@ main {
   padding: 0 var(--content-padding);
   padding-top: 48px;
   justify-content: center;
+  justify-self: flex-end;
 }
 
 .load-more-btn {
@@ -40,6 +43,10 @@ main {
 .load-more-btn:hover {
   background-color: rgba(9, 33, 42, 0.8);
   border: 2px solid white;
+}
+
+.no-pkm-found {
+  text-align: center;
 }
 
 /* #region header */

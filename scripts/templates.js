@@ -54,8 +54,8 @@ function pokemonDialogTemplate(index) {
     </section>
     
     <section class="dialog-arrow-btn-section">
-     <button onclick="renderPokemonDialog(${index - 1})"><img src="../assets/icons/arrow-left.svg" alt="" /></button>
-      <button onclick="renderPokemonDialog(${index + 1})"><img src="../assets/icons/arrow-right.svg" alt="" /></button>
+     <button onclick="arrowLeft(${index})"><img src="../assets/icons/arrow-left.svg" alt="" /></button>
+      <button onclick="arrowRight(${index})"><img src="../assets/icons/arrow-right.svg" alt="" /></button>
       </section>`;
 }
 

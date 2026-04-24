@@ -13,6 +13,30 @@ function renderPokemonDialog(index) {
   renderDetailInfo(index);
 }
 
+function arrowLeft(index) {
+  let newIndex;
+
+  if (index == 0) {
+    newIndex = currentPokemons.length - 1;
+  } else {
+    newIndex = index - 1;
+  }
+
+  renderPokemonDialog(newIndex);
+}
+
+function arrowRight(index) {
+  let newIndex;
+
+  if (index == currentPokemons.length - 1) {
+    newIndex = 0;
+  } else {
+    newIndex = index + 1;
+  }
+
+  renderPokemonDialog(newIndex);
+}
+
 POKEMON_DIALOG.addEventListener("click", (event) => {
   if (event.target === POKEMON_DIALOG) {
     POKEMON_DIALOG.close();

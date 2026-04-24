@@ -162,3 +162,7 @@ p {
   font-size: 24px;
   font-weight: 500;
 }
+
+.no-pkm-found {
+  font-size: 32px;
+}

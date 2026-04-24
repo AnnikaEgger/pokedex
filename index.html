@@ -35,11 +35,16 @@
         id="filter-pokemon-input"
         class="filter-pokemon-input"
         type="text"
+        placeholder="search for pokemon"
       />
     </header>
 
     <main id="main">
       <section id="pokemon-section" class="pokemon-section"></section>
+      <h2 id="no-pkm-found-h2" class="no-pkm-found display-none">
+        no pokemon found...
+      </h2>
+
       <section class="load-more-section">
         <button onclick="loadMorePokemon()" class="load-more-btn">
           Load more

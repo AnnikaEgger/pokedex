@@ -1,7 +1,7 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
 let offset = 0;
 let offsetForLoading = 0;
-let limit = 3;
+let limit = 20;
 
 let allPokemons = [];
 let currentPokemons = [];
@@ -111,11 +111,22 @@ function filterPokemon() {
     filterPokemon2(inputValue);
   } else {
     currentPokemons = allPokemons;
+    const NOT_FOUND_TEXT = document.getElementById("no-pkm-found-h2");
+    NOT_FOUND_TEXT.classList.add("display-none");
+
     renderPokemons();
   }
 }
 
 function filterPokemon2(inputValue) {
   currentPokemons = allPokemons.filter((obj) => obj.name.includes(inputValue));
+  console.log(currentPokemons);
+
+  const NOT_FOUND_TEXT = document.getElementById("no-pkm-found-h2");
+  if (currentPokemons.length == 0) {
+    NOT_FOUND_TEXT.classList.remove("display-none");
+  } else {
+    NOT_FOUND_TEXT.classList.add("display-none");
+  }
   renderPokemons();
 }
