@@ -56,18 +56,13 @@ function pokemonDialogTemplate(index) {
         evo chain</button>
     </section>
       
-    <section id="detail-info-section" class="detail-info-section">
-      <div class="loading-spinner-container">
-        <img class="loading-spinner-evo" src="./assets/icons/pokeball.png" alt="" />
-        <p>loading...</p>
-      </div>
-    </section>
+    <section id="detail-info-section" class="detail-info-section"></section>
 
   </article>
     
   <section class="dialog-arrow-btn-section">
-    <button onclick="arrowLeft(${index})"><img src="./assets/icons/arrow-left.svg" alt="" /></button>
-    <button onclick="arrowRight(${index})"><img src="./assets/icons/arrow-right.svg" alt="" /></button>
+    <button onclick="arrowLeft(${index})"><img src="./assets/icons/arrow-left.svg" alt="arrow left icon" /></button>
+    <button onclick="arrowRight(${index})"><img src="./assets/icons/arrow-right.svg" alt="arrow right icon" /></button>
   </section>`;
 }
 
@@ -179,7 +174,7 @@ function loadMoreBtnTemplate() {
 
 function loadingSpinnerTemplate() {
   return `<div class="loading-spinner-container-evo">
-        <img class="loading-spinner-evo" src="../assets/icons/pokeball.png" alt="" />
+        <img class="loading-spinner-evo" src="./assets/icons/pokeball.png" alt="" />
         <p>loading...</p>
       </div>`;
 }
