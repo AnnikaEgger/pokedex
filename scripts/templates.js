@@ -58,7 +58,7 @@ function pokemonDialogTemplate(index) {
       
     <section id="detail-info-section" class="detail-info-section">
       <div class="loading-spinner-container">
-        <img class="loading-spinner-evo" src="../assets/icons/pokeball.png" alt="" />
+        <img class="loading-spinner-evo" src="./assets/icons/pokeball.png" alt="" />
         <p>loading...</p>
       </div>
     </section>
@@ -66,8 +66,8 @@ function pokemonDialogTemplate(index) {
   </article>
     
   <section class="dialog-arrow-btn-section">
-    <button onclick="arrowLeft(${index})"><img src="../assets/icons/arrow-left.svg" alt="" /></button>
-    <button onclick="arrowRight(${index})"><img src="../assets/icons/arrow-right.svg" alt="" /></button>
+    <button onclick="arrowLeft(${index})"><img src="./assets/icons/arrow-left.svg" alt="" /></button>
+    <button onclick="arrowRight(${index})"><img src="./assets/icons/arrow-right.svg" alt="" /></button>
   </section>`;
 }
 
