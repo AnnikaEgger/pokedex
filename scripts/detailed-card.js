@@ -3,6 +3,7 @@ let mainInfos = {};
 let stats = {};
 const POKEMON_DIALOG = document.getElementById("pokemon-dialog");
 
+// rendering and opening dialog
 function openPokemonDialog(index) {
   renderPokemonDialog(index);
   POKEMON_DIALOG.showModal();
@@ -13,6 +14,7 @@ function renderPokemonDialog(index) {
   renderDetailInfo(index);
 }
 
+// switch to pokemon to the left
 function arrowLeft(index) {
   let newIndex;
 
@@ -25,6 +27,7 @@ function arrowLeft(index) {
   renderPokemonDialog(newIndex);
 }
 
+// switch to pokemon to the right
 function arrowRight(index) {
   let newIndex;
 
@@ -44,46 +47,78 @@ POKEMON_DIALOG.addEventListener("click", (event) => {
   }
 });
 
+// choosing detail info based on which button is being clicked (main, stats or evo-chain)
 function chooseDetailInfo(info, index) {
   activeDetailInfo = info;
   renderDetailInfo(index);
 }
 
+// render the correct detail info
 async function renderDetailInfo(index) {
+  updateBorderBottom();
+
+  switch (activeDetailInfo) {
+    case "main":
+      await renderMain(index);
+      break;
+    case "stats":
+      await renderStats(index);
+      break;
+    case "evo-chain":
+      await loadEvoChain(index);
+      break;
+  }
+}
+
+async function renderMain(index) {
   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+  await getDetailedInfosMain(index);
+  DETAIL_INFO_SECTION.innerHTML = dialogMainTemplate();
+}
+
+async function renderStats(index) {
+  const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+  await getDetailedInfosStats(index);
+  DETAIL_INFO_SECTION.innerHTML = dialogStatsTemplate();
+}
+
+// get and render evo chain, show loading spinner while waiting
+async function loadEvoChain(index) {
+  const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+  showLoadingSpinnerEvo();
+  let evoStageFigures = await getEvolutionChain(index);
+  hideLoadingSpinnerEvo();
+  renderEvoChain(evoStageFigures);
+}
+
+// turning border-bottom-color of pressed button to red
+function updateBorderBottom() {
   const MAIN_BTN = document.getElementById("main-btn");
   const STATS_BTN = document.getElementById("stats-btn");
   const EVO_CHAIN_BTN = document.getElementById("evo-chain-btn");
 
-  if (activeDetailInfo == "main") {
-    STATS_BTN.style.borderBottom = "";
-    EVO_CHAIN_BTN.style.borderBottom = "";
-    MAIN_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
-    await getDetailedInfosMain(index);
-    DETAIL_INFO_SECTION.innerHTML = dialogMainTemplate();
-  } else if (activeDetailInfo == "stats") {
-    MAIN_BTN.style.borderBottom = "";
-    EVO_CHAIN_BTN.style.borderBottom = "";
-    STATS_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
-    await getDetailedInfosStats(index);
-    DETAIL_INFO_SECTION.innerHTML = dialogStatsTemplate();
-  } else if (activeDetailInfo == "evo-chain") {
-    MAIN_BTN.style.borderBottom = "";
-    STATS_BTN.style.borderBottom = "";
-    EVO_CHAIN_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
-    showLoadingSpinnerEvo();
-    let evoStageFigures = await getEvolutionChain(index);
-    hideLoadingSpinnerEvo();
-    renderEvoChain(evoStageFigures);
+  switch (activeDetailInfo) {
+    case "main":
+      STATS_BTN.style.borderBottom = "";
+      EVO_CHAIN_BTN.style.borderBottom = "";
+      MAIN_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
+      break;
+    case "stats":
+      MAIN_BTN.style.borderBottom = "";
+      EVO_CHAIN_BTN.style.borderBottom = "";
+      STATS_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
+      break;
+    case "evo-chain":
+      MAIN_BTN.style.borderBottom = "";
+      STATS_BTN.style.borderBottom = "";
+      EVO_CHAIN_BTN.style.borderBottom = "2px solid rgb(248, 79, 79)";
+      break;
   }
 }
 
 function showLoadingSpinnerEvo() {
   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
-  DETAIL_INFO_SECTION.innerHTML = `<div class="loading-spinner-container-evo">
-        <img class="loading-spinner-evo" src="../assets/icons/pokeball.png" alt="" />
-        <p>loading...</p>
-      </div>`;
+  DETAIL_INFO_SECTION.innerHTML = loadingSpinnerTemplate();
 }
 
 function hideLoadingSpinnerEvo() {
@@ -100,7 +135,7 @@ function renderEvoChain(evoStageFigures) {
     indexEvoFigure < evoStageFigures.length;
     indexEvoFigure++
   ) {
-    DETAIL_INFO_SECTION.innerHTML += dialogEvoChainTemplate(
+    DETAIL_INFO_SECTION.innerHTML += dialogEvoChainFigureTemplate(
       evoStageFigures,
       indexEvoFigure,
     );
@@ -178,6 +213,7 @@ async function getEvoStageFigure(evoChainInfos, stage) {
   }
 }
 
+// filtering out undefined evo stage figures
 function filterEvoStageFigures(evoStageFiguresUnfiltered) {
   const evoStageFigures = evoStageFiguresUnfiltered.filter(
     function checkIfUndefined(evoStageFigure) {
@@ -187,6 +223,7 @@ function filterEvoStageFigures(evoStageFiguresUnfiltered) {
   return evoStageFigures;
 }
 
+// getting pokemons name of each evolution stage
 function getEvStageName(evoChainInfos, stage) {
   if (stage == 1) {
     return evoChainInfos.chain.species.name;

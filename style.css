@@ -14,6 +14,10 @@ main {
   flex-direction: column;
 }
 
+.display-none {
+  display: none;
+}
+
 .loading-spinner-container {
   position: absolute;
   top: calc(50% - 100px);
@@ -157,6 +161,7 @@ footer {
 
 /* #endregion */
 
+/* #region responsive */
 @media screen and (max-width: 768px) {
   .pokemon-section,
   .load-more-section,
@@ -195,3 +200,5 @@ footer {
     width: 64px;
   }
 }
+
+/* #endregion */

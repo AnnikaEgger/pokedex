@@ -1,9 +1,5 @@
 /* #region pokemon thumbnail */
 
-.display-none {
-  display: none;
-}
-
 .pokemon-btn {
   border: none;
   padding: 0;
@@ -15,7 +11,6 @@
 .pokemon-article {
   display: flex;
   flex-direction: column;
-  /* height: 400px; */
 }
 
 .article-top {
@@ -36,7 +31,6 @@
   display: flex;
   justify-content: center;
   height: 300px;
-  /* flex: 1; */
 }
 
 .pokemon-img {
@@ -45,7 +39,7 @@
   filter: drop-shadow(8px 8px 4px rgba(0, 0, 0, 0.3));
 }
 
-.pokemon-img:hover {
+.pokemon-article:hover .pokemon-img {
   filter: drop-shadow(8px 8px 4px rgba(0, 0, 0, 0.5));
   zoom: 1.05;
 }
@@ -60,7 +54,6 @@
   justify-content: center;
   align-items: center;
   gap: 24px;
-  /* padding: 16px 16px; */
 }
 
 .type-section img {
@@ -82,7 +75,6 @@
   justify-self: center;
   align-self: center;
   padding: 0;
-  /* height: 600px; */
   width: 400px;
   background-color: var(--primary-color);
   border: none;
@@ -174,7 +166,6 @@ td {
   justify-content: start;
   text-align: center;
   gap: 8px;
-  /* overflow-wrap: break-word; */
 }
 
 .evo-figure figcaption {

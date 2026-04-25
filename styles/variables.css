@@ -4,6 +4,5 @@
   --third-color: #124658;
 
   --content-padding: max(calc(50% - 960px), 48px);
-  /* --content-padding-medium: max(calc(50% - 720px), 48px); */
   --content-padding-small: max(calc(50% - 960px), 24px);
 }

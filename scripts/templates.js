@@ -41,26 +41,34 @@ function pokemonDialogTemplate(index) {
     ${renderTypeIcons(index)}
     </section>
 
-  </article>
-  
-  
-         <section class="dialog-btn-section">
-        <button id="main-btn" onclick="chooseDetailInfo('main', ${index})"  class="btn-main">main</button
-        ><button id="stats-btn" onclick="chooseDetailInfo('stats', ${index})" class="btn-stats">stats</button
-        ><button id="evo-chain-btn" onclick="chooseDetailInfo('evo-chain', ${index})" class="btn-evo-chain">evo chain</button>
-      </section>
+    <section class="dialog-btn-section">
+        <button
+          id="main-btn" onclick="chooseDetailInfo('main', ${index})"
+          class="btn-main">
+        main</button>
+        <button id="stats-btn"
+          onclick="chooseDetailInfo('stats', ${index})"
+          class="btn-stats">
+        stats</button>
+        <button id="evo-chain-btn"
+          onclick="chooseDetailInfo('evo-chain', ${index})"
+          class="btn-evo-chain">
+        evo chain</button>
+    </section>
       
     <section id="detail-info-section" class="detail-info-section">
-    <div class="loading-spinner-container">
+      <div class="loading-spinner-container">
         <img class="loading-spinner-evo" src="../assets/icons/pokeball.png" alt="" />
         <p>loading...</p>
       </div>
     </section>
+
+  </article>
     
-    <section class="dialog-arrow-btn-section">
-     <button onclick="arrowLeft(${index})"><img src="../assets/icons/arrow-left.svg" alt="" /></button>
-      <button onclick="arrowRight(${index})"><img src="../assets/icons/arrow-right.svg" alt="" /></button>
-      </section>`;
+  <section class="dialog-arrow-btn-section">
+    <button onclick="arrowLeft(${index})"><img src="../assets/icons/arrow-left.svg" alt="" /></button>
+    <button onclick="arrowRight(${index})"><img src="../assets/icons/arrow-right.svg" alt="" /></button>
+  </section>`;
 }
 
 function dialogMainTemplate() {
@@ -131,7 +139,7 @@ function dialogStatsTemplate() {
       </table>`;
 }
 
-function dialogEvoChainTemplate(evoStageFigures, indexEvoFigure) {
+function dialogEvoChainFigureTemplate(evoStageFigures, indexEvoFigure) {
   return `
   <figure class="evo-figure">
       <img class="evo-chain-img" src="${evoStageFigures[indexEvoFigure].img_url}" alt="" />
@@ -140,23 +148,26 @@ function dialogEvoChainTemplate(evoStageFigures, indexEvoFigure) {
 }
 
 function EvoChainArrowSvgTemplate() {
-  return `<svg class="evo-arrow" width="48px" height="48px" viewBox="0 -0.5 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="si-glyph si-glyph-two-arrow-right">
+  return `<svg class="evo-arrow" width="48px" height="48px" 
+  viewBox="0 -0.5 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" 
+  xmlns:xlink="http://www.w3.org/1999/xlink" class="si-glyph si-glyph-two-arrow-right">
     
-    <title>1133</title>
+  <title>1133</title>
     
-    <defs>
+  <defs></defs>
 
-</defs>
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g transform="translate(1.000000, 3.000000)" fill="white">
-            <path d="M11.83,4.999 L8.086,10 L12.025,10 L15.969,4.999 L11.927,0.03 L8.009,0.03 L7.998,0.041 L11.83,4.999 Z" class="si-glyph-fill">
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g transform="translate(1.000000, 3.000000)" fill="white">
+      <path 
+        d="M11.83,4.999 L8.086,10 L12.025,10 L15.969,4.999 L11.927,0.03 L8.009,0.03 L7.998,0.041 L11.83,4.999 Z" class="si-glyph-fill">
+      </path>
 
-</path>
-            <path d="M4.047,4.999 L0.096,10 L4.034,10 L8,4.999 L3.935,0.03 L0.018,0.03 L0.008,0.041 L4.047,4.999 Z" class="si-glyph-fill">
-
-</path>
-        </g>
+      <path 
+        d="M4.047,4.999 L0.096,10 L4.034,10 L8,4.999 L3.935,0.03 L0.018,0.03 L0.008,0.041 L4.047,4.999 Z" class="si-glyph-fill">
+      </path>
     </g>
+  </g>
+
 </svg>`;
 }
 
@@ -164,4 +175,11 @@ function loadMoreBtnTemplate() {
   return `<button onclick="loadMorePokemon()" class="load-more-btn">
           Load more
         </button>`;
+}
+
+function loadingSpinnerTemplate() {
+  return `<div class="loading-spinner-container-evo">
+        <img class="loading-spinner-evo" src="../assets/icons/pokeball.png" alt="" />
+        <p>loading...</p>
+      </div>`;
 }

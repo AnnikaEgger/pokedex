@@ -1,7 +1,6 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
 let offset = 0;
-let offsetForLoading = 0;
-let limit = 25;
+const LIMIT = 25;
 
 let allPokemons = [];
 let currentPokemons = [];
@@ -11,11 +10,12 @@ function init() {
   loadPokemon();
 }
 
+// get and render pokemons
 async function loadPokemon() {
   showLoadingSpinner();
 
   let pokemonResponse = await getPokemonInfos(
-    BASE_URL + `pokemon?limit=${limit}&offset=${offset}` + ".json",
+    BASE_URL + `pokemon?limit=${LIMIT}&offset=${offset}` + ".json",
   );
 
   for (let index = 0; index < pokemonResponse.results.length; index++) {
@@ -58,6 +58,7 @@ function hideLoadingSpinner() {
   loadingSpinner.style.display = "none";
 }
 
+// get and push base information about each pokemon
 async function pushPokemonBaseInfos() {
   for (let index = 0; index < allPokemons.length; index++) {
     let pokemonBaseInfos = await getPokemonBaseInfos(allPokemons[index].url);
@@ -96,6 +97,7 @@ async function getPokemonTypesIcons(index) {
   }
 }
 
+// render pokemon thumbnails/ small view
 function renderPokemons() {
   const POKEMON_SECTION = document.getElementById("pokemon-section");
 
@@ -127,20 +129,22 @@ function renderTypeIcons(index) {
   return returnValue;
 }
 
+// load more pokemon when pressing button "load more"
 function loadMorePokemon() {
-  offsetForLoading += limit;
-  offset += limit;
+  offset += LIMIT;
   loadPokemon();
 }
 
-function filterPokemon() {
-  let inputRef = document.getElementById("filter-pokemon-input");
-  let inputValue = inputRef.value;
+// check input if long enough (min 3 letters)
+function checkInput() {
+  const INPUT_REF = document.getElementById("filter-pokemon-input");
+  let inputValue = INPUT_REF.value;
   const MIN_TEXT = document.getElementById("input-min-text");
 
-  if (inputRef.value.length >= 3) {
+  if (INPUT_REF.value.length >= 3) {
     MIN_TEXT.classList.add("visibility-hidden");
-    filterPokemon2(inputValue);
+    filterPokemon(inputValue);
+    renderPokemons();
   } else {
     currentPokemons = allPokemons;
     MIN_TEXT.classList.remove("visibility-hidden");
@@ -151,12 +155,14 @@ function filterPokemon() {
   }
 }
 
+// hide text below inputfield when unfocusing it
 function hideInputMinText() {
   const MIN_TEXT = document.getElementById("input-min-text");
   MIN_TEXT.classList.add("visibility-hidden");
 }
 
-function filterPokemon2(inputValue) {
+// filter pokemon based on input text, if not display "no pokemon found"
+function filterPokemon(inputValue) {
   currentPokemons = allPokemons.filter((obj) => obj.name.includes(inputValue));
 
   const NOT_FOUND_TEXT = document.getElementById("no-pkm-found-h2");
@@ -165,5 +171,4 @@ function filterPokemon2(inputValue) {
   } else {
     NOT_FOUND_TEXT.classList.add("display-none");
   }
-  renderPokemons();
 }

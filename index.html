@@ -15,12 +15,10 @@
     <link rel="stylesheet" href="./styles/variables.css" />
     <link rel="stylesheet" href="styles/standard.css" />
     <link rel="stylesheet" href="./styles/fonts.css" />
-    <link rel="stylesheet" href="./styles/assets.css" />
     <link rel="stylesheet" href="./styles/pokemon.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body id="body" onload="init()">
-    <!-- <body> -->
     <header>
       <div class="header-left">
         <img
@@ -34,7 +32,7 @@
       <div class="input-container">
         <input
           onfocusout="hideInputMinText()"
-          oninput="filterPokemon()"
+          oninput="checkInput()"
           id="filter-pokemon-input"
           type="text"
           placeholder="search for pokemon"
@@ -75,6 +73,6 @@
   </body>
   <!-- scripts -->
   <script src="scripts/templates.js"></script>
-  <script src="./scripts/detailed_card.js"></script>
+  <script src="./scripts/detailed-card.js"></script>
   <script src="script.js"></script>
 </html>
