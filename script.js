@@ -12,7 +12,7 @@ function init() {
 
 // get and render pokemons
 async function loadPokemon() {
-  showLoadingSpinner();
+  loadingSpinner("none", "none", "flex");
 
   let pokemonResponse = await getPokemonInfos(
     BASE_URL + `pokemon?limit=${LIMIT}&offset=${offset}` + ".json",
@@ -26,7 +26,8 @@ async function loadPokemon() {
   }
 
   await pushPokemonBaseInfos();
-  hideLoadingSpinner();
+  loadingSpinner("flex", "", "none");
+
   renderPokemons();
   renderLoadMoreBtn();
 }
@@ -36,26 +37,37 @@ function renderLoadMoreBtn() {
   loadMoreSec.innerHTML = loadMoreBtnTemplate();
 }
 
-function showLoadingSpinner() {
+// function showLoadingSpinner() {
+//   let pokeSec = document.getElementById("pokemon-section");
+//   pokeSec.style.display = "none";
+
+//   let loadMoreSec = document.getElementById("load-more-section");
+//   loadMoreSec.style.display = "none";
+
+//   let loadingSpinner = document.getElementById("loading-spinner");
+//   loadingSpinner.style.display = "flex";
+// }
+
+// function hideLoadingSpinner() {
+//   let pokeSec = document.getElementById("pokemon-section");
+//   pokeSec.style.display = "flex";
+
+//   let loadMoreSec = document.getElementById("load-more-section");
+//   loadMoreSec.style.display = "";
+
+//   let loadingSpinner = document.getElementById("loading-spinner");
+//   loadingSpinner.style.display = "none";
+// }
+
+function loadingSpinner(pokeSecStyle, loadSecStyle, spinnerStyle) {
   let pokeSec = document.getElementById("pokemon-section");
-  pokeSec.style.display = "none";
+  pokeSec.style.display = pokeSecStyle;
 
   let loadMoreSec = document.getElementById("load-more-section");
-  loadMoreSec.style.display = "none";
+  loadMoreSec.style.display = loadSecStyle;
 
   let loadingSpinner = document.getElementById("loading-spinner");
-  loadingSpinner.style.display = "flex";
-}
-
-function hideLoadingSpinner() {
-  let pokeSec = document.getElementById("pokemon-section");
-  pokeSec.style.display = "flex";
-
-  let loadMoreSec = document.getElementById("load-more-section");
-  loadMoreSec.style.display = "";
-
-  let loadingSpinner = document.getElementById("loading-spinner");
-  loadingSpinner.style.display = "none";
+  loadingSpinner.style.display = spinnerStyle;
 }
 
 // get and push base information about each pokemon

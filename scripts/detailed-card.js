@@ -59,10 +59,18 @@ async function renderDetailInfo(index) {
 
   switch (activeDetailInfo) {
     case "main":
-      await renderMain(index);
+      await renderDetailMainStats(
+        index,
+        getDetailedInfosMain,
+        dialogMainTemplate,
+      );
       break;
     case "stats":
-      await renderStats(index);
+      await renderDetailMainStats(
+        index,
+        getDetailedInfosStats(index),
+        dialogStatsTemplate(),
+      );
       break;
     case "evo-chain":
       await loadEvoChain(index);
@@ -70,17 +78,23 @@ async function renderDetailInfo(index) {
   }
 }
 
-async function renderMain(index) {
+async function renderDetailMainStats(index, getInfo, htmlTemplate) {
   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
-  await getDetailedInfosMain(index);
-  DETAIL_INFO_SECTION.innerHTML = dialogMainTemplate();
+  await getInfo;
+  DETAIL_INFO_SECTION.innerHTML = htmlTemplate;
 }
 
-async function renderStats(index) {
-  const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
-  await getDetailedInfosStats(index);
-  DETAIL_INFO_SECTION.innerHTML = dialogStatsTemplate();
-}
+// async function renderMain(index) {
+//   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+//   await getDetailedInfosMain(index);
+//   DETAIL_INFO_SECTION.innerHTML = dialogMainTemplate();
+// }
+
+// async function renderStats(index) {
+//   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
+//   await getDetailedInfosStats(index);
+//   DETAIL_INFO_SECTION.innerHTML = dialogStatsTemplate();
+// }
 
 // get and render evo chain, show loading spinner while waiting
 async function loadEvoChain(index) {
@@ -163,6 +177,8 @@ async function getDetailedInfosMain(index) {
     base_experience: allInfos.base_experience,
     abilities: abilities,
   };
+
+  console.log(mainInfos);
 }
 
 async function getDetailedInfosStats(index) {
@@ -240,5 +256,8 @@ function getEvStageName(evoChainInfos, stage) {
 
 async function getPokemonInfos(path) {
   let response = await fetch(path);
-  return (responseToJson = await response.json());
+  let responseToJson = await response.json();
+  console.log(responseToJson);
+
+  return responseToJson;
 }
