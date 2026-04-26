@@ -42,10 +42,15 @@ function arrowRight(index) {
 
 POKEMON_DIALOG.addEventListener("click", (event) => {
   if (event.target === POKEMON_DIALOG) {
-    POKEMON_DIALOG.close();
+    // POKEMON_DIALOG.close();
+    closeDialog();
     activeDetailInfo = "main";
   }
 });
+
+function closeDialog() {
+  POKEMON_DIALOG.close();
+}
 
 // choosing detail info based on which button is being clicked (main, stats or evo-chain)
 function chooseDetailInfo(info, index) {
@@ -61,15 +66,15 @@ async function renderDetailInfo(index) {
     case "main":
       await renderDetailMainStats(
         index,
-        "getDetailedInfosMain()",
-        "dialogMainTemplate()",
+        getDetailedInfosMain,
+        dialogMainTemplate,
       );
       break;
     case "stats":
       await renderDetailMainStats(
         index,
-        getDetailedInfosStats(index),
-        dialogStatsTemplate(),
+        getDetailedInfosStats,
+        dialogStatsTemplate,
       );
       break;
     case "evo-chain":
@@ -80,21 +85,9 @@ async function renderDetailInfo(index) {
 
 async function renderDetailMainStats(index, getInfo, htmlTemplate) {
   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
-  await getInfo;
-  DETAIL_INFO_SECTION.innerHTML = htmlTemplate;
+  await getInfo(index);
+  DETAIL_INFO_SECTION.innerHTML = htmlTemplate();
 }
-
-// async function renderMain(index) {
-//   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
-//   await getDetailedInfosMain(index);
-//   DETAIL_INFO_SECTION.innerHTML = dialogMainTemplate();
-// }
-
-// async function renderStats(index) {
-//   const DETAIL_INFO_SECTION = document.getElementById("detail-info-section");
-//   await getDetailedInfosStats(index);
-//   DETAIL_INFO_SECTION.innerHTML = dialogStatsTemplate();
-// }
 
 // get and render evo chain, show loading spinner while waiting
 async function loadEvoChain(index) {
@@ -177,8 +170,6 @@ async function getDetailedInfosMain(index) {
     base_experience: allInfos.base_experience,
     abilities: abilities,
   };
-
-  console.log(mainInfos);
 }
 
 async function getDetailedInfosStats(index) {
@@ -257,7 +248,5 @@ function getEvStageName(evoChainInfos, stage) {
 async function getPokemonInfos(path) {
   let response = await fetch(path);
   let responseToJson = await response.json();
-  console.log(responseToJson);
-
   return responseToJson;
 }

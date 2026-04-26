@@ -37,28 +37,6 @@ function renderLoadMoreBtn() {
   loadMoreSec.innerHTML = loadMoreBtnTemplate();
 }
 
-// function showLoadingSpinner() {
-//   let pokeSec = document.getElementById("pokemon-section");
-//   pokeSec.style.display = "none";
-
-//   let loadMoreSec = document.getElementById("load-more-section");
-//   loadMoreSec.style.display = "none";
-
-//   let loadingSpinner = document.getElementById("loading-spinner");
-//   loadingSpinner.style.display = "flex";
-// }
-
-// function hideLoadingSpinner() {
-//   let pokeSec = document.getElementById("pokemon-section");
-//   pokeSec.style.display = "flex";
-
-//   let loadMoreSec = document.getElementById("load-more-section");
-//   loadMoreSec.style.display = "";
-
-//   let loadingSpinner = document.getElementById("loading-spinner");
-//   loadingSpinner.style.display = "none";
-// }
-
 function loadingSpinner(pokeSecStyle, loadSecStyle, spinnerStyle) {
   let pokeSec = document.getElementById("pokemon-section");
   pokeSec.style.display = pokeSecStyle;

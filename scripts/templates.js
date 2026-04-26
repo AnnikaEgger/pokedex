@@ -25,19 +25,20 @@ function pokemonThumbnailArticleTemplate(index) {
 function pokemonDialogTemplate(index) {
   return ` <article class="pokemon-article">
 
-    <section class="article-top">
+    <section class="article-top article-top-detailed">
       <p>#${currentPokemons[index].id}</p>
       <h2>
       ${String(currentPokemons[index].name).charAt(0).toUpperCase() + String(currentPokemons[index].name).slice(1)}
       </h2>
+      <button onclick="closeDialog()" class="close-dialog-btn"><img src="./assets/icons/close-icon.svg" alt="close icon"></button>
     </section>
 
     <section id= "${"img-section" + index}" 
       class="pokemon-img-section-detailed ${currentPokemons[index].types[0].type.name}">
-      <img src="${currentPokemons[index].base_sprite}" alt="" class="pokemon-img-detailed">
+      <img src="${currentPokemons[index].base_sprite}" class="pokemon-img-detailed">
     </section>
         
-    <section id="${"type-section" + index}" class="type-section">
+    <section id="${"type-section" + index}" class="type-section type-section-detailed">
     ${renderTypeIcons(index)}
     </section>
 

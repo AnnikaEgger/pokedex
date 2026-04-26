@@ -85,6 +85,22 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.close-dialog-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.article-top-detailed .close-dialog-btn {
+  position: absolute;
+  top: 0;
+  left: 85%;
+  cursor: pointer;
+}
+
+.close-dialog-btn img {
+  width: 32px;
+}
+
 .pokemon-img-section-detailed {
   display: flex;
   justify-content: center;
@@ -196,7 +212,8 @@ td {
 
 @media screen and (max-width: 480px) {
   .pokemon-dialog {
-    width: 250px;
+    /* width: 250px; */
+    width: min(calc(100dvw - var(--content-padding-small)), 300px);
   }
 
   .main-info-table th,
@@ -224,7 +241,31 @@ td {
     width: 230px;
     height: 230px;
   }
+
+  .dialog-arrow-btn-section img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .type-section-detailed {
+    height: 48px;
+  }
+
+  .type-section-detailed img {
+    height: 32px;
+    width: 32px;
+  }
+
+  .article-top-detailed {
+    margin: 8px 8px;
+  }
+
+  .article-top-detailed h2,
+  p {
+    font-size: 20px;
+  }
 }
+
 /* #endregion */
 
 /* #region type classes */
