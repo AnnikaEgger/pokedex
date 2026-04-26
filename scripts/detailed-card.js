@@ -61,8 +61,8 @@ async function renderDetailInfo(index) {
     case "main":
       await renderDetailMainStats(
         index,
-        getDetailedInfosMain,
-        dialogMainTemplate,
+        "getDetailedInfosMain()",
+        "dialogMainTemplate()",
       );
       break;
     case "stats":
